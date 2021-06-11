@@ -1,0 +1,158 @@
+<html>
+    <head>
+        <!-- Axios http request library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo" style="padding-left: 15">Mr Hoel</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#lesson">Lesson</a></li>
+                <li><a href="#future">Future</a></li>
+              </ul>
+            </div>
+        </nav>
+                
+        <div class="container">
+            <!-- cool collapsable, must initialize in script first -->
+            <ul class="collapsible" style="margin-top: 25px;">
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>Axios API library</div>
+                  <div class="collapsible-body">
+                    <h4 class="myh3" style="padding:0px;">Day 6 - JS and APIs</h4>    
+                        <img src="axios.png">
+                        <p>Axios is a free JS library that lets you access online API data. View page source to get CDN link.</p>
+                   </div>
+                </li>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">place</i>Axios at work!</div>
+                  <div class="collapsible-body">
+                    <h4>Realtime covid data</h4>
+                    <button class="waves-effect waves-light btn" onclick="sortMe()"><i class="material-icons right">sort</i>sort</button>
+                    <div id="coviddata">
+                        <!-- preloader, to wait while data gets loaded -->
+                        <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-blue-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div> <!-- end collapsible -->
+                </li>
+            </ul>
+
+            <h3 id="lesson">Lesson progression</h3>
+
+            <ul class="collection">
+                <li class="collection-item avatar">
+                  <i class="material-icons circle red">play_arrow</i>
+                  <span class="title">What is an API?</span>
+                  <p><a href="https://www.youtube.com/watch?v=qW1qhb8r8xI&ab_channel=DanielleTh%C3%A9" target="_blank">Quick review of APIs</a>
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle pink">code</i>
+                  <span class="title">Basics of Axios</span>
+                  <p>Review how to use asynchornous http get and then call a function to update your web page.</p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle pink">code</i>
+                  <span class="title">Update web page with sorted data list</span>
+                  <p>
+                      Add first graphic of your dashboard website.
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle blue">cloud_upload</i>
+                  <span class="title">Upload new code to Github</span>
+                  <p>
+                      Upload your changes
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle blue">cloud_upload</i>
+                  <span class="title">Update your repo wiki</span>
+                  <p>
+                      Write about what you learned today.
+                  </p>
+                </li>
+              </ul>
+
+            <h3 id="future">Future lessons</h3>
+            <ul class="collection">
+                <li class="collection-item">Mapping using Leaflet.js</li>
+                <li class="collection-item">Advanced Mapping algorithm data API</li>
+                <li class="collection-item">Graphing using chart.js</li>
+                <li class="collection-item">Show and tell</li>
+            </ul>
+        </div>
+    </body>
+    
+    <script>
+        
+          document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems);
+          });
+        
+        // global variables for doing sorting
+        var globalData = {};
+        var globalSort = 0; // 0 for unsorted, 1 for ascend, 2 for descend
+        
+        // this piece of code uses axios to go get the data and run the functions to build the web site        
+        axios.get("https://www.trackcorona.live/api/countries")
+            .then(response => {
+                placedata(response.data.data) // place date on page
+            })
+            .catch(error => { // in case there is an error
+                console.log("whoops something bad happened!");
+                console.log(error);
+            })
+        
+        function placedata(response) {
+            globalData = response;
+            var mydata = document.getElementById("coviddata");
+            
+            // Build the HTML collection list
+            var collated = "<ul class='collection'>";
+            for (i=0; i<response.length; i++) {
+                collated = collated + "<li class='collection-item'>" + response[i].location + " (" + response[i].confirmed + ")</li>"; 
+            }
+            collated = collated + "</ul>";
+            
+            // Insert the HTML collection string into the HTML document
+            mydata.innerHTML = collated;
+        }
+        
+        function sortMe() {
+            response = globalData;
+            // check globalSort to flip ascend/descend sort
+            if (globalSort <=1) {
+                response.sort(function (a, b) {
+                        return a.confirmed - b.confirmed;
+                });
+                globalSort = 2;
+            } else {
+                response.sort(function (a, b) {
+                        return b.confirmed - a.confirmed;
+                });
+                globalSort = 1;
+            } 
+            placedata(response); // replace the data list
+        }
+    </script>
+    
+</html>
