@@ -1,1 +1,1 @@
-# catherine
+# covid course
