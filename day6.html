@@ -2,9 +2,9 @@
     <head>
         <!-- Axios http request library -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-        
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
@@ -17,14 +17,14 @@
               </ul>
             </div>
         </nav>
-                
+
         <div class="container">
             <!-- cool collapsable, must initialize in script first -->
             <ul class="collapsible" style="margin-top: 25px;">
                 <li>
                   <div class="collapsible-header"><i class="material-icons">filter_drama</i>Axios API library</div>
                   <div class="collapsible-body">
-                    <h4 class="myh3" style="padding:0px;">Day 6 - JS and APIs</h4>    
+                    <h4 class="myh3" style="padding:0px;">Day 6 - JS and APIs</h4>
                         <img src="axios.png">
                         <p>Axios is a free JS library that lets you access online API data. View page source to get CDN link.</p>
                    </div>
@@ -64,6 +64,12 @@
                   </p>
                 </li>
                 <li class="collection-item avatar">
+                  <i class="material-icons circle orange">insert_emoticon</i>
+                  <span class="title">Example</span>
+                  <p><a href="http://apimeme.com/?ref=apilist.fun" target="_blank">One of my favourites</a>
+                  </p>
+                </li>
+                <li class="collection-item avatar">
                   <i class="material-icons circle pink">code</i>
                   <span class="title">Basics of Axios</span>
                   <p>Review how to use asynchornous http get and then call a function to update your web page.</p>
@@ -100,43 +106,43 @@
             </ul>
         </div>
     </body>
-    
+
     <script>
-        
+
           document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.collapsible');
             var instances = M.Collapsible.init(elems);
           });
-        
+
         // global variables for doing sorting
         var globalData = {};
         var globalSort = 0; // 0 for unsorted, 1 for ascend, 2 for descend
-        
-        // this piece of code uses axios to go get the data and run the functions to build the web site        
+
+        // this piece of code uses axios to go get the data and run the functions to build the web site
         axios.get("https://www.trackcorona.live/api/countries")
             .then(response => {
-                placedata(response.data.data) // place date on page
+                placedata(response.data.data) // place data on page
             })
             .catch(error => { // in case there is an error
                 console.log("whoops something bad happened!");
                 console.log(error);
             })
-        
+
         function placedata(response) {
             globalData = response;
             var mydata = document.getElementById("coviddata");
-            
+
             // Build the HTML collection list
             var collated = "<ul class='collection'>";
             for (i=0; i<response.length; i++) {
-                collated = collated + "<li class='collection-item'>" + response[i].location + " (" + response[i].confirmed + ")</li>"; 
+                collated = collated + "<li class='collection-item'>" + response[i].location + " (" + response[i].confirmed + ")</li>";
             }
             collated = collated + "</ul>";
-            
+
             // Insert the HTML collection string into the HTML document
             mydata.innerHTML = collated;
         }
-        
+
         function sortMe() {
             response = globalData;
             // check globalSort to flip ascend/descend sort
@@ -150,9 +156,9 @@
                         return b.confirmed - a.confirmed;
                 });
                 globalSort = 1;
-            } 
+            }
             placedata(response); // replace the data list
         }
     </script>
-    
+
 </html>
