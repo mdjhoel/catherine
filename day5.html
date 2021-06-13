@@ -19,50 +19,55 @@
             
             <h3 class="myh3">Day 5 - JS and JSON</h3>    
               <div class="row">
-                <div class="col s12 m6">
+                <div class="col s12 m5">
                   <div class="card">
                     <div class="card-image">
                       <img src="json.gif">
                     </div>
                     <div class="card-content">
-                      <p>JSON is a lightweight format for storing and transporting data over the WWW.</p>
+                      <p>JSON is a lightweight format for storing and transporting data over the WWW. Here is a code example of receiving JSON array data, parsing and working with it in JS.</p>
+                      <div style="padding-top: 10px; font-family: courier;"><i>
+> var jsondata = '{"date":"today", "students":[{"name": "joe", "age":51},{"name": "mary", "age":14}]}';<br>
+> var myobj = JSON.parse(jsondata);<br>
+> var firstname = myobj[0].name;
+                      </i></div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="card">
+                <div class="col s12 m7">
+                  <div class="card">
                     <div class="card-content">
-                    <h4>JSON data from COVID tracker API</h4>
+                    <h4>JSON data from COVID API</h4>
                     <pre>
-                        {
-                        "code":200,
-                        "data":[
-                          {
-                             "location":"Brazil",
-                             "country_code":"br",
-                             "latitude":-14.235004,
-                             "longitude":-51.92528,
-                             "confirmed":17215159,
-                             "dead":482135,
-                             "recovered":15670754,
-                             "updated":"2021-06-11 15:15:07.261890+00:00"
-                          },
-                          {
-                             "location":"South Africa",
-                             "country_code":"za",
-                             "latitude":-30.559482,
-                             "longitude":22.937506,
-                             "confirmed":1722086,
-                             "dead":103,
-                             "recovered":1486873,
-                             "updated":"2021-06-11 15:05:01.626525+00:00"
-                          }
-                        ]
-                        }
+{
+    "code":200,
+    "data":[
+      {
+         "location":"Brazil",
+         "country_code":"br",
+         "latitude":-14.235004,
+         "longitude":-51.92528,
+         "confirmed":17215159,
+         "dead":482135,
+         "recovered":15670754,
+         "updated":"2021-06-11 15:15:07.261890+00:00"
+      },
+      {
+         "location":"South Africa",
+         "country_code":"za",
+         "latitude":-30.559482,
+         "longitude":22.937506,
+         "confirmed":1722086,
+         "dead":103,
+         "recovered":1486873,
+         "updated":"2021-06-11 15:05:01.626525+00:00"
+      }
+    ]
+}
                     </pre>
                     </div>
                   </div>
+                </div>
               </div>
         
 
