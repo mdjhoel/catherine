@@ -28,8 +28,8 @@
             <h3 class="myh3">Day 9 - Charts with ChartJS</h3>
               <div class="row">
                 <div class="col s12">
-                  <div class="card">
-                    <canvas id="myChart" width="100%" height="62%"></canvas>
+                  <div class="card" id="mycard">
+
                     <div class="card-content">
                       <p>JSON is a lightweight mapping library you can use to create all types of mapping apps.</p>
                       <div style="padding-top: 10px;">
@@ -98,9 +98,29 @@
     // call basic chart
     barChart();
 
+    function createCanvas(id) {
+
+      // Test if myChart has been created, if so remove it and start over
+      var elem = document.getElementById("myChart");
+      if (elem != null || typeof(element) != 'undefined') {
+        console.log("deleting existing canvas");
+        elem.remove();
+      }
+
+      var canvas = document.createElement("canvas");
+      canvas.id = id;
+      canvas.width = 400;
+      canvas.height = 200;
+      document.getElementById('mycard').appendChild(canvas);
+    }
+
     function barChart() {
+
+      var myid = "myChart";
+      createCanvas(myid);
+
       // Bar chart
-      new Chart(document.getElementById("myChart"), {
+      new Chart(document.getElementById(myid), {
           type: 'bar',
           data: {
             labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
@@ -123,7 +143,11 @@
     }
 
     function lineChart() {
-      new Chart(document.getElementById("myChart"), {
+
+      var myid = "myChart";
+      createCanvas(myid);
+
+      new Chart(document.getElementById(myid), {
         type: 'line',
         data: {
           labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
@@ -165,7 +189,11 @@
     }
 
     function pieChart() {
-      new Chart(document.getElementById("myChart"), {
+
+      var myid = "myChart";
+      createCanvas(myid);
+
+      new Chart(document.getElementById(myid), {
           type: 'pie',
           data: {
             labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
@@ -209,7 +237,10 @@
             confirmed.push(allvalues[i]['confirmed'])
         }
 
-        var ctx = document.getElementById('myChart').getContext('2d');
+        var myid = "myChart";
+        createCanvas(myid);
+
+        var ctx = document.getElementById(myid).getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {

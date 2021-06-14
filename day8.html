@@ -2,16 +2,16 @@
     <head>
         <!-- Axios http request library -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-        
+
         <!-- CDN for Leaflet mapping libary -->
         <link rel='stylesheet' href='https://unpkg.com/leaflet@1.4.0/dist/leaflet.css'/>
         <script src='https://unpkg.com/leaflet@1.4.0/dist/leaflet.js'></script>
-        
+
         <!-- CDN for Materialize framework -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        
+
     </head>
     <body>
         <nav>
@@ -23,22 +23,24 @@
               </ul>
             </div>
         </nav>
-                
+
         <div class="container">
-            
-            <h3 class="myh3">Day 8 - Advanced mapping algorithm</h3>    
+
+            <h3 class="myh3">Day 8 - Advanced mapping algorithm</h3>
               <div class="row">
                 <div class="col s12">
                   <div class="card">
                     <div id='map' style='width:100%; height:400'></div>
                     <div class="card-content">
                       <p>This map data comes from an API and uses an algorithm to build it.</p>
-                      <button class="btn" onclick="getdata()">API</button>
+                      <div style="padding-top: 10px">
+                        <button class="waves-effect waves-light btn" onclick="getdata()"><i class="material-icons left">cloud</i>API</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-        
+
 
             <h3 id="lesson">Lesson progression</h3>
 
@@ -88,12 +90,12 @@
             </ul>
         </div>
     </body>
-    
+
     <script>
-        
+
         // call basic map
         mapit()
-        
+
         // this piece of code uses axios to go get the data and run the functions to build the web site
         function getdata() {
             axios.get("https://www.trackcorona.live/api/countries")
@@ -117,7 +119,7 @@
             map.addLayer(carto);
         }
 
-        // function receives API data, loops and creates a circle for each    
+        // function receives API data, loops and creates a circle for each
         function algo(response) {
             // algorithm to go through all API data and map it
             allvalues = Object.values(response); // object values into array
@@ -131,5 +133,5 @@
         }
 
     </script>
-    
+
 </html>
